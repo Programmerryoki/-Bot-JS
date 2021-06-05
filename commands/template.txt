@@ -1,0 +1,9 @@
+module.exports = {
+  name: '',
+  aliases: [],
+  description: '',
+  example: '',
+  cooldown: 10,
+  execute(client, message, args, cmd, Discord, profileData) {
+  },
+};
