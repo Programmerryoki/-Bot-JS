@@ -1,67 +1,16 @@
-const profileModel = require('../models/profileSchema');
+const Database = require("@replit/database")
+const db = new Database();
 
-const createProfile = async (memberID, guildID) => {
-  profileData = await profileModel.findOne({ userID: memberID });
-  if (!profileData) {
-    let profile = await profileModel.create({
-      userID: memberID,
-      serverID: guildID,
-      bronze: 10,
-      silver: 0,
-      gold: 0,
-      bank: 0,
-    });
-    profile.save();
-  }
-};
-
-const deleteProfile = async (memberID) => {
-  profileData = await profileModel.findOneAndDelete({ userID: memberID });
-};
-
-const pmMoneyBronze = async (member, amount) => {
-  let profile = await profileModel.findOneAndUpdate(
-    {
-      userID: member.id,
-    },
-    {
-      $inc: {
-        bronze: amount,
-      },
-    }
-  );
-};
-
-const pmMoneySilver = async (member, amount) => {
-  let profile = await profileModel.findOneAndUpdate(
-    {
-      userID: member.id,
-    },
-    {
-      $inc: {
-        silver: amount,
-      },
-    }
-  );
-};
-
-const pmMoneyGold = async (member, amount) => {
-  let profile = await profileModel.findOneAndUpdate(
-    {
-      userID: member.id,
-    },
-    {
-      $inc: {
-        gold: amount,
-      },
-    }
-  );
+const pmMoney = async (memberID, currency, amount) => {
+  let smID = parseInt(memberID);
+  console.log('\n\n\n\n\n\n\n');
+  let profile = await db.get(smID);
+  console.log("BP",profile);
+  profile[currency] += amount;
+  console.log(profile);
+  await db.set(smID, profile);
 };
 
 module.exports = {
-  createProfile,
-  deleteProfile,
-  pmMoneyBronze,
-  pmMoneySilver,
-  pmMoneyGold,
+  pmMoney
 };

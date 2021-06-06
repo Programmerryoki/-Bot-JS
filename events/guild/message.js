@@ -1,5 +1,5 @@
 const PREFIX = process.env['PREFIX'];
-const { createProfile } = require('../../helper/money');
+const { createProfile, listProfile } = require('../../helper/database');
 
 const cooldowns = new Map();
 
