@@ -17,8 +17,12 @@ module.exports = async (Discord, client, message) => {
   const args = message.content.slice(prefix.length).split(/ +/);
   const cmd = args.shift().toLowerCase();
   const command =
-    client.commands.get(cmd) ||
-    client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
+    await client.commands.get(cmd) ||
+    await client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
+
+  if (!command) {
+    message.reply(`Command: "${PREFIX+cmd}" not found!`);
+  } 
 
   if (!cooldowns.has(command.name)) {
     cooldowns.set(command.name, new Discord.Collection());
