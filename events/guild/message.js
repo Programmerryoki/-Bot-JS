@@ -1,5 +1,5 @@
 const PREFIX = process.env['PREFIX'];
-const { createProfile } = require('../../helper/money');
+const { createProfile } = require('../../helper/database');
 
 const cooldowns = new Map();
 
@@ -54,5 +54,9 @@ module.exports = async (Discord, client, message) => {
   } catch (err) {
     message.reply('There was an error trying to execute this command!');
     console.log(err);
+  } finally {
+    message.delete().catch((err) => {
+      console.log(err);
+    })
   }
 };
