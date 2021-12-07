@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-
+const keepAlive = require("./server");
 const DISCORD_TOKEN = process.env['DISCORD_TOKEN']
 const MONGODB_SRV = process.env['MONGODB_SRV']
 
@@ -29,4 +29,5 @@ mongoose
     console.log(err);
   });
 
+keepAlive();
 client.login(DISCORD_TOKEN);

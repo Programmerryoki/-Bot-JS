@@ -1,4 +1,4 @@
-const { deleteProfile } = require('../../helper/money');
+const { deleteProfile } = require('../../helper/database');
 
 module.exports = async (Discord, client, member) => {
   deleteProfile(member['user'].id);
